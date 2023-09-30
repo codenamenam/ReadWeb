@@ -31,6 +31,35 @@ export default function Home() {
   const month = today.getMonth() + 1;
   const day = today.getDate();
 
+  //타이머
+  const [timeRemaining, setTimeRemaining] = useState(300);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // 타이머 콜백 함수
+      if (timeRemaining > 0) {
+        // 시간이 남아있을 때
+        setTimeRemaining(timeRemaining - 1); // 1초씩 감소
+      } else {
+        clearInterval(timer); // 시간이 다 되면 타이머 종료
+      }
+    }, 1000); // 1초마다 실행
+
+    return () => {
+      clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
+      localStorage.setItem("timeRemaining", timeRemaining.toString());
+    };
+  }, [timeRemaining]);
+
+  const progressRatio = (timeRemaining / 300) * 100;
+
+  // 초를 분과 초로 변환
+  const minutes = Math.floor(timeRemaining / 60);
+  const seconds = timeRemaining % 60;
+
+  // 시간을 00:00 형식으로 포맷
+  const formattedTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+
   return (
     <>
       <Center style={{ marginTop: "20px" }}>
@@ -38,6 +67,7 @@ export default function Home() {
           <Flex
             direction={"row"}
             align={"center"}
+            justify={"space-between"}
             style={{ marginBottom: "20px" }}
           >
             <Flex direction={"column"}>
@@ -58,7 +88,6 @@ export default function Home() {
                 </Title>
               </Flex>
             </Flex>
-            <Space w="150px" />
             <RingProgress
               label={
                 <Center>
@@ -69,13 +98,13 @@ export default function Home() {
                       fontSize: "12px",
                     }}
                   >
-                    4:53
+                    {formattedTime}
                   </Text>
                 </Center>
               }
-              sections={[{ value: 40, color: "#F21D76" }]}
+              sections={[{ value: progressRatio, color: "#F21D76" }]}
               size={60}
-              thickness={6}
+              thickness={5}
               style={{ margin: 0, padding: 0 }}
             ></RingProgress>
           </Flex>
