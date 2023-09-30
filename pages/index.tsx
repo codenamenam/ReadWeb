@@ -1,4 +1,12 @@
-import { Button, Center, Flex, Text, Title, Card, Group } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Flex,
+  Text,
+  Title,
+  Space,
+  RingProgress,
+} from "@mantine/core";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -25,19 +33,59 @@ export default function Home() {
 
   return (
     <>
-      <Center>
+      <Center style={{ marginTop: "20px" }}>
         <Flex direction={"column"} style={{ width: "340px" }}>
-          <Flex direction={"row"}>
+          <Flex
+            direction={"row"}
+            align={"center"}
+            style={{ marginBottom: "20px" }}
+          >
             <Flex direction={"column"}>
-              <Text>
+              <Text
+                style={{
+                  color: "grey",
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  margin: "5px 0 5px 0",
+                }}
+              >
                 {month}월 {day}일
               </Text>
-              <Title>오늘의 디펜스</Title>
+              <Flex>
+                <Title size={20}>오늘의&nbsp;</Title>
+                <Title size={20} style={{ color: "#F21D76" }}>
+                  디펜스
+                </Title>
+              </Flex>
             </Flex>
-            <Text>4:53</Text>
+            <Space w="150px" />
+            <RingProgress
+              label={
+                <Center>
+                  <Text
+                    style={{
+                      color: "grey",
+                      fontWeight: "500",
+                      fontSize: "12px",
+                    }}
+                  >
+                    4:53
+                  </Text>
+                </Center>
+              }
+              sections={[{ value: 40, color: "#F21D76" }]}
+              size={60}
+              thickness={6}
+              style={{ margin: 0, padding: 0 }}
+            ></RingProgress>
           </Flex>
-          <div style={{ backgroundColor: "grey" }}>
-            <Text>{readData}</Text>
+          <div
+            style={{
+              backgroundColor: " rgba(250, 251, 252, 1)",
+              padding: "20px",
+            }}
+          >
+            <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
           <Button>아아</Button>
         </Flex>
