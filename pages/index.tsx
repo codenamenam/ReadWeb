@@ -116,7 +116,6 @@ export default function Home() {
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
-          <Button>아아</Button>
         </Flex>
       </Center>
     </>
