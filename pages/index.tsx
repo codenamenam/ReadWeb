@@ -4,8 +4,8 @@ import {
   Flex,
   Text,
   Title,
-  Space,
   RingProgress,
+  Textarea,
 } from "@mantine/core";
 
 import { useState, useEffect } from "react";
@@ -112,10 +112,31 @@ export default function Home() {
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
               padding: "20px",
+              marginBottom: "20px",
             }}
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
+          <Flex direction={"column"}>
+            <Title size={20} style={{ marginBottom: "20px" }}>
+              나의 요약
+            </Title>
+            <Textarea
+              placeholder="여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"
+              minRows={10}
+            />
+            <Flex justify={"end"}>
+              <Text style={{ color: "grey", fontSize: "12px" }}>0/120</Text>
+            </Flex>
+            <Flex direction={"row"} justify={"space-between"}>
+              <Button style={{ width: "80px", height: "60px" }} color="red">
+                저장
+              </Button>
+              <Button style={{ width: "280px", height: "60px" }}>
+                최종 제출
+              </Button>
+            </Flex>
+          </Flex>
         </Flex>
       </Center>
     </>
