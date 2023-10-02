@@ -132,7 +132,7 @@ export default function Home() {
             width: "100%",
             boxShadow: "0px -3px 20px 0px rgba(37, 38, 46, 0.15)",
             zIndex: 1000,
-            borderRadius: "10px 10px 0 0",
+            borderRadius: "20px 20px 0 0",
           }}
         >
           <Title size={20} style={{ margin: "20px 0 20px 0" }}>
