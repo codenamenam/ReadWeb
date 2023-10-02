@@ -60,6 +60,10 @@ export default function Home() {
   // 시간을 00:00 형식으로 포맷
   const formattedTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 
+  // 텍스트 입력
+  const [inputValue, setInputValue] = useState("");
+  const [inputValueLength, setInputValueLength] = useState(0);
+
   return (
     <>
       <Center style={{ marginTop: "20px" }}>
@@ -112,30 +116,70 @@ export default function Home() {
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
               padding: "20px",
-              marginBottom: "20px",
+              marginBottom: "300px",
             }}
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
-          <Flex direction={"column"}>
-            <Title size={20} style={{ marginBottom: "20px" }}>
-              나의 요약
-            </Title>
+        </Flex>
+        <Flex
+          direction={"column"}
+          style={{
+            position: "fixed",
+            backgroundColor: "white",
+            bottom: 0,
+            padding: "0 20px 0 20px",
+            width: "100%",
+            boxShadow: "0px -3px 20px 0px rgba(37, 38, 46, 0.15)",
+            zIndex: 1000,
+            borderRadius: "10px 10px 0 0",
+          }}
+        >
+          <Title size={20} style={{ margin: "20px 0 20px 0" }}>
+            나의 요약
+          </Title>
+          <div>
             <Textarea
-              placeholder="여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"
-              minRows={10}
+              placeholder={"여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"}
+              autosize
+              minRows={5}
+              maxRows={5}
+              value={inputValue}
+              onChange={(event) => {
+                setInputValue(event.currentTarget.value);
+                setInputValueLength(event.currentTarget.value.length);
+              }}
             />
-            <Flex justify={"end"}>
-              <Text style={{ color: "grey", fontSize: "12px" }}>0/120</Text>
-            </Flex>
-            <Flex direction={"row"} justify={"space-between"}>
-              <Button style={{ width: "80px", height: "60px" }} color="red">
-                저장
-              </Button>
-              <Button style={{ width: "280px", height: "60px" }}>
+          </div>
+          <Flex justify={"end"} style={{ marginBottom: "30px" }}>
+            <Text style={{ color: "grey", fontSize: "12px" }}>
+              {inputValueLength}
+            </Text>
+            <Text style={{ color: "grey", fontSize: "12px" }}>/200</Text>
+          </Flex>
+          <Flex
+            direction={"row"}
+            justify={"space-between"}
+            style={{ margin: 0, width: "100%" }}
+          >
+            <Button
+              style={{ width: "30%", height: "60px" }}
+              color="ddColorMain"
+              variant="outline"
+              radius={0}
+            >
+              <Text style={{ fontSize: "20px", fontWeight: 500 }}>저장</Text>
+            </Button>
+            <Button
+              style={{ width: "70%", height: "60px" }}
+              color="ddColorMain"
+              variant="filled"
+              radius={0}
+            >
+              <Text style={{ fontSize: "20px", fontWeight: 500 }}>
                 최종 제출
-              </Button>
-            </Flex>
+              </Text>
+            </Button>
           </Flex>
         </Flex>
       </Center>
