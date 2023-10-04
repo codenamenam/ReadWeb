@@ -116,7 +116,7 @@ export default function Home() {
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
               padding: "10px",
-              marginBottom: "200px",
+              marginBottom: "130px",
             }}
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
