@@ -116,10 +116,10 @@ export default function Home() {
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
               padding: "10px",
-              marginBottom: "300px",
+              marginBottom: "200px",
             }}
           >
-            <Text style={{ fontSize: "14px" }}>{readData}</Text>
+            <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
         </Flex>
         <Flex
@@ -132,43 +132,41 @@ export default function Home() {
             width: "100%",
             boxShadow: "0px -3px 20px 0px rgba(37, 38, 46, 0.15)",
             zIndex: 1000,
-            borderRadius: "20px 20px 0 0",
+            borderRadius: "0px 0px 0 0",
           }}
         >
           <Title size={10} style={{ margin: "20px 0 0px 0" }}></Title>
-          <div>
-            <Textarea
-              placeholder={"여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"}
-              autosize
-              minRows={2}
-              maxRows={5}
-              value={inputValue}
-              onChange={(event) => {
-                setInputValue(event.currentTarget.value);
-                setInputValueLength(event.currentTarget.value.length);
-              }}
-            />
-          </div>
-          <Flex justify={"end"} style={{ marginBottom: "30px" }}>
-            <Text style={{ color: "grey", fontSize: "12px" }}>
-              {inputValueLength}
-            </Text>
-            <Text style={{ color: "grey", fontSize: "12px" }}>/200</Text>
-          </Flex>
-          <Flex
-            direction={"row"}
-            justify={"space-between"}
-            style={{ margin: 0, width: "100%" }}
-          >
+          <Flex direction="row" style={{ justifyContent: "space-between" }}>
+            <Flex direction="column" style={{ width: "85%" }}>
+              <Textarea
+                placeholder={
+                  "여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"
+                }
+                variant="unstyled"
+                autosize
+                minRows={2}
+                maxRows={4}
+                value={inputValue}
+                onChange={(event) => {
+                  setInputValue(event.currentTarget.value);
+                  setInputValueLength(event.currentTarget.value.length);
+                }}
+              />
+              <Flex justify={"end"} style={{ marginBottom: "15px" }}>
+                <Text style={{ color: "grey", fontSize: "12px" }}>
+                  {inputValueLength}
+                </Text>
+                <Text style={{ color: "grey", fontSize: "12px" }}>/200</Text>
+              </Flex>
+            </Flex>
+
             <Button
-              style={{ width: "100%", height: "60px" }}
+              style={{ width: "14%", height: "33px", padding: "0" }}
               color="ddColorMain"
               variant="filled"
-              radius={0}
+              radius={5}
             >
-              <Text style={{ fontSize: "20px", fontWeight: 500 }}>
-                최종 제출
-              </Text>
+              <Text style={{ fontSize: "15px", fontWeight: 600 }}>제출</Text>
             </Button>
           </Flex>
         </Flex>
