@@ -129,7 +129,7 @@ export default function Home() {
             position: "fixed",
             backgroundColor: "white",
             bottom: 0,
-            padding: "20px 20px 20px 20px",
+            padding: "10px 20px 10px 20px",
             width: "100%",
             boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
             zIndex: 1000,
