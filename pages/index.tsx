@@ -115,11 +115,11 @@ export default function Home() {
           <div
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
-              padding: "20px",
+              padding: "10px",
               marginBottom: "300px",
             }}
           >
-            <Text style={{ fontSize: "16px" }}>{readData}</Text>
+            <Text style={{ fontSize: "14px" }}>{readData}</Text>
           </div>
         </Flex>
         <Flex
@@ -135,14 +135,12 @@ export default function Home() {
             borderRadius: "20px 20px 0 0",
           }}
         >
-          <Title size={20} style={{ margin: "20px 0 20px 0" }}>
-            나의 요약
-          </Title>
+          <Title size={10} style={{ margin: "20px 0 0px 0" }}></Title>
           <div>
             <Textarea
               placeholder={"여기에 요약해주세요. 8시에 AI 피드백이 제공됩니다!"}
               autosize
-              minRows={5}
+              minRows={2}
               maxRows={5}
               value={inputValue}
               onChange={(event) => {
@@ -163,15 +161,7 @@ export default function Home() {
             style={{ margin: 0, width: "100%" }}
           >
             <Button
-              style={{ width: "30%", height: "60px" }}
-              color="ddColorMain"
-              variant="outline"
-              radius={0}
-            >
-              <Text style={{ fontSize: "20px", fontWeight: 500 }}>저장</Text>
-            </Button>
-            <Button
-              style={{ width: "70%", height: "60px" }}
+              style={{ width: "100%", height: "60px" }}
               color="ddColorMain"
               variant="filled"
               radius={0}
