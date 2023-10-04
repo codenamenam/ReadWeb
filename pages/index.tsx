@@ -45,9 +45,15 @@ export default function Home() {
       }
     }, 1000); // 1초마다 실행
 
+    const storedInputData = sessionStorage.getItem("inputData");
+    const inputValue: string | null =
+      storedInputData !== null ? storedInputData : ""; // 또는 기본값을 다른 값으로 설정할 수 있습니다
+
+    setInputValue(inputValue);
+
     return () => {
       clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
-      localStorage.setItem("timeRemaining", timeRemaining.toString());
+      sessionStorage.setItem("timeRemaining", timeRemaining.toString());
     };
   }, [timeRemaining]);
 
@@ -151,6 +157,10 @@ export default function Home() {
                   onChange={(event) => {
                     setInputValue(event.currentTarget.value);
                     setInputValueLength(event.currentTarget.value.length);
+                    sessionStorage.setItem(
+                      "inputData",
+                      event.currentTarget.value
+                    );
                   }}
                 />
               </Flex>
