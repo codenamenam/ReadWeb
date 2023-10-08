@@ -10,6 +10,7 @@ import {
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Home() {
   //지문 가져오기
@@ -22,9 +23,17 @@ export default function Home() {
     }
   };
 
+  // 동적 라우팅
+  const router = useRouter();
+
   useEffect(() => {
+    if (!router.isReady) {
+      return;
+    }
     handleReadData();
-  }, []);
+    const { user_id } = router.query;
+    handleSummaryData(user_id);
+  }, [router.isReady]);
 
   //날짜 가져오기
   const today = new Date();
@@ -69,6 +78,31 @@ export default function Home() {
   // 텍스트 입력
   const [inputValue, setInputValue] = useState("");
   const [inputValueLength, setInputValueLength] = useState(0);
+
+  // 요약 다시보기
+  /**
+   * URL에 사용자 식별 id(10.9 DB기준: SummaryData 테이블의 user_id) 전달됨
+   * 그 id를 가져와야 됨
+   * 챗봇에서 쏴줄 때, user_id가 매일 암호화되어 전송되어야 함
+   * -> 사용자가 즐겨찾기 해놓고 새로고침하면서 못쓰게 하려고..
+   *
+   *
+   * 가져온 아이디에 기반하여 getSummaryData 요청을 보냄
+   * 1. 사용자가 요약을 제출했다면: 하단에 요약 다시보기 컴포넌트가 보임
+   * 2. 사용자가 요약을 제출하지 않았다면: 아무것도 안뜸
+   */
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [summaryData, setSummaryData] = useState("");
+  const [userName, setUserName] = useState("");
+
+  const handleSummaryData = async (user_id: string) => {
+    const result = await axios.get("../api/getSummaryData/" + user_id);
+    if (result.status === 200 && result.data.body != null) {
+      setIsSubmitted(true);
+      setSummaryData(result.data.body[0]["summary"]);
+      setUserName(result.data.body[0]["user_name"]);
+    }
+  };
 
   return (
     <>
@@ -122,11 +156,33 @@ export default function Home() {
             style={{
               backgroundColor: " rgba(250, 251, 252, 1)",
               padding: "10px",
-              marginBottom: "130px",
+              marginBottom: isSubmitted ? "50px" : "130px",
             }}
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
           </div>
+          {isSubmitted && (
+            <>
+              <Flex style={{ marginBottom: "20px" }}>
+                <Title size={20}>{userName}님의&nbsp;</Title>
+                <Title size={20}>요약&nbsp;</Title>
+                <Title size={20} style={{ color: "#F21D76" }}>
+                  다시보기
+                </Title>
+              </Flex>
+              <div
+                style={{
+                  backgroundColor: " rgba(250, 251, 252, 1)",
+                  padding: "10px",
+                  marginBottom: "130px",
+                }}
+              >
+                <Text style={{ fontSize: "15px", color: "grey" }}>
+                  {summaryData}
+                </Text>
+              </div>
+            </>
+          )}
         </Flex>
 
         <Flex
