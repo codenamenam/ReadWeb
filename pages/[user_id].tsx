@@ -32,7 +32,9 @@ export default function Home() {
     }
     handleReadData();
     const { user_id } = router.query;
-    handleSummaryData(user_id);
+    if (user_id === "string") {
+      handleSummaryData(user_id);
+    }
   }, [router.isReady]);
 
   //날짜 가져오기
