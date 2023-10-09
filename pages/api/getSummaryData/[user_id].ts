@@ -11,17 +11,11 @@ export default async function handler(
   );
 
   if (req.method === "GET") {
-    try {
-      const { user_id } = req.query;
-      const { data, error } = await supabase.rpc("get_summary_data", {
-        input_user_id: user_id,
-      });
+    const { user_id } = req.query;
+    const { data, error } = await supabase.rpc("get_summary_data", {
+      input_user_id: user_id,
+    });
 
-      res.status(200).json({ body: data });
-    } catch (error) {
-      console.log(error);
-      res.statusCode = 500;
-      res.send(error);
-    }
+    res.status(200).json({ body: data });
   }
 }

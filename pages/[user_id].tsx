@@ -32,7 +32,8 @@ export default function Home() {
     }
     handleReadData();
     const { user_id } = router.query;
-    if (user_id === "string") {
+
+    if (user_id) {
       handleSummaryData(user_id);
     }
   }, [router.isReady]);
@@ -97,7 +98,7 @@ export default function Home() {
   const [summaryData, setSummaryData] = useState("");
   const [userName, setUserName] = useState("");
 
-  const handleSummaryData = async (user_id: string) => {
+  const handleSummaryData = async (user_id: string | string[]) => {
     const result = await axios.get("../api/getSummaryData/" + user_id);
     if (result.status === 200 && result.data.body != null) {
       setIsSubmitted(true);
