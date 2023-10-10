@@ -11,11 +11,16 @@ export default async function handler(
   );
 
   if (req.method === "GET") {
+    // user_id를 가져옴
     const { user_id } = req.query;
-    const { data, error } = await supabase.rpc("get_summary_data", {
-      input_user_id: user_id,
-    });
-
-    res.status(200).json({ body: data });
+    try {
+      const { data, error } = await supabase.rpc("get_summary_data", {
+        input_user_id: user_id,
+      });
+      res.status(200).json({ body: data });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
   }
 }

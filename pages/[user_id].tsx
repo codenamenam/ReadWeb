@@ -25,7 +25,6 @@ export default function Home() {
 
   // 동적 라우팅
   const router = useRouter();
-
   useEffect(() => {
     if (!router.isReady) {
       return;
@@ -45,7 +44,6 @@ export default function Home() {
 
   //타이머
   const [timeRemaining, setTimeRemaining] = useState(300);
-
   useEffect(() => {
     const timer = setInterval(() => {
       // 타이머 콜백 함수
