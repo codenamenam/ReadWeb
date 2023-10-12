@@ -11,6 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
   //지문 가져오기
@@ -25,14 +26,17 @@ export default function Home() {
 
   // 동적 라우팅
   const router = useRouter();
+  const [user_id, setUserId] = useState("");
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
     handleReadData();
+
     const { user_id } = router.query;
 
     if (user_id) {
+      setUserId(user_id);
       handleSummaryData(user_id);
     }
   }, [router.isReady]);
@@ -102,6 +106,78 @@ export default function Home() {
       setIsSubmitted(true);
       setSummaryData(result.data.body[0]["summary"]);
       setUserName(result.data.body[0]["user_name"]);
+    }
+  };
+
+  // 제출 기능
+  const submit = async () => {
+    const allData = {
+      bot: {
+        id: "64bb62cd84644d346efde407",
+        name: "도파민 디펜스 봇",
+      },
+      intent: {
+        id: "64c791901a44040a688c7491",
+        name: "요약하기",
+        extra: {
+          reason: {
+            code: 0,
+            message: "OK",
+          },
+        },
+      },
+      action: {
+        id: "64e439e08c33dd465729751d",
+        name: "post-submit-summary",
+        params: {
+          summary: "",
+        },
+        detailParams: {
+          summary: {
+            groupName: "",
+            origin: inputValue,
+            value: "",
+          },
+        },
+      },
+      clientExtra: {},
+      userRequest: {
+        block: {
+          id: "64c791901a44040a688c7491",
+          name: "요약하기",
+        },
+        user: {
+          id: "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+          type: "botUserKey",
+          properties: {
+            botUserKey:
+              "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+            appUserStatus: "REGISTERED",
+            isFriend: true,
+            app_user_status: "REGISTERED",
+            app_user_id: user_id,
+            plusfriendUserKey: "ckUy2724egt1",
+            appUserId: user_id,
+            bot_user_key:
+              "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+            plusfriend_user_key: "ckUy2724egt1",
+          },
+        },
+        utterance: "요약하기",
+        params: {
+          surface: "Kakaotalk.plusfriend",
+        },
+        lang: "ko",
+        timezone: "Asia/Seoul",
+      },
+      contexts: [],
+    };
+
+    const result = await axios.post("../api/postSubmitData", allData);
+    if (result.status === 200) {
+      router.reload();
+    } else {
+      console.log(result);
     }
   };
 
@@ -237,6 +313,7 @@ export default function Home() {
                   color="ddColorMain"
                   variant="filled"
                   radius={5}
+                  onClick={submit}
                 >
                   <Text style={{ fontSize: "15px", fontWeight: 700 }}>
                     제출
