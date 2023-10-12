@@ -173,7 +173,7 @@ export default function Home() {
     };
 
     const result = await axios.post("../api/postSubmitData", allData);
-    alert("요약이 제출되었습니다. 8시에 결과를 보내드릴께요!");
+    alert("요약이 제출되었습니다. \n8시에 결과를 보내드릴께요!");
     setInputValue("");
     sessionStorage.setItem("inputData", "");
   };
