@@ -11,7 +11,6 @@ import {
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export default function Home() {
   //지문 가져오기
@@ -35,7 +34,7 @@ export default function Home() {
 
     const { user_id } = router.query;
 
-    if (user_id) {
+    if (user_id && typeof user_id == "string") {
       setUserId(user_id);
       handleSummaryData(user_id);
     }
