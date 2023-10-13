@@ -63,6 +63,7 @@ export default function Home() {
       storedInputData !== null ? storedInputData : ""; // 또는 기본값을 다른 값으로 설정할 수 있습니다
 
     setInputValue(inputValue);
+    setInputValueLength(inputValue.length);
 
     return () => {
       clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
@@ -110,72 +111,77 @@ export default function Home() {
 
   // 제출 기능
   const submit = async () => {
-    const allData = {
-      bot: {
-        id: "64bb62cd84644d346efde407",
-        name: "도파민 디펜스 봇",
-      },
-      intent: {
-        id: "64c791901a44040a688c7491",
-        name: "요약하기",
-        extra: {
-          reason: {
-            code: 0,
-            message: "OK",
-          },
+    if (sessionStorage.getItem("inputData") == "") {
+      alert("요약 내용을 입력해주세요.");
+    } else {
+      const allData = {
+        bot: {
+          id: "64bb62cd84644d346efde407",
+          name: "도파민 디펜스 봇",
         },
-      },
-      action: {
-        id: "64e439e08c33dd465729751d",
-        name: "post-submit-summary",
-        params: {
-          summary: "",
-        },
-        detailParams: {
-          summary: {
-            groupName: "",
-            origin: inputValue,
-            value: "",
-          },
-        },
-      },
-      clientExtra: {},
-      userRequest: {
-        block: {
+        intent: {
           id: "64c791901a44040a688c7491",
           name: "요약하기",
-        },
-        user: {
-          id: "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-          type: "botUserKey",
-          properties: {
-            botUserKey:
-              "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-            appUserStatus: "REGISTERED",
-            isFriend: true,
-            app_user_status: "REGISTERED",
-            app_user_id: user_id,
-            plusfriendUserKey: "ckUy2724egt1",
-            appUserId: user_id,
-            bot_user_key:
-              "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-            plusfriend_user_key: "ckUy2724egt1",
+          extra: {
+            reason: {
+              code: 0,
+              message: "OK",
+            },
           },
         },
-        utterance: "요약하기",
-        params: {
-          surface: "Kakaotalk.plusfriend",
+        action: {
+          id: "64e439e08c33dd465729751d",
+          name: "post-submit-summary",
+          params: {
+            summary: "",
+          },
+          detailParams: {
+            summary: {
+              groupName: "",
+              origin: inputValue,
+              value: "",
+            },
+          },
         },
-        lang: "ko",
-        timezone: "Asia/Seoul",
-      },
-      contexts: [],
-    };
+        clientExtra: {},
+        userRequest: {
+          block: {
+            id: "64c791901a44040a688c7491",
+            name: "요약하기",
+          },
+          user: {
+            id: "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+            type: "botUserKey",
+            properties: {
+              botUserKey:
+                "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+              appUserStatus: "REGISTERED",
+              isFriend: true,
+              app_user_status: "REGISTERED",
+              app_user_id: user_id,
+              plusfriendUserKey: "ckUy2724egt1",
+              appUserId: user_id,
+              bot_user_key:
+                "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
+              plusfriend_user_key: "ckUy2724egt1",
+            },
+          },
+          utterance: "요약하기",
+          params: {
+            surface: "Kakaotalk.plusfriend",
+          },
+          lang: "ko",
+          timezone: "Asia/Seoul",
+        },
+        contexts: [],
+      };
 
-    const result = await axios.post("../api/postSubmitData", allData);
-    alert("요약이 제출되었습니다. \n8시에 결과를 보내드릴께요!");
-    setInputValue("");
-    sessionStorage.setItem("inputData", "");
+      const result = await axios.post("../api/postSubmitData", allData);
+      alert("요약이 제출되었습니다. \n8시에 결과를 보내드릴께요!");
+      setInputValue("");
+      sessionStorage.setItem("inputData", "");
+      setInputValueLength(0);
+    }
   };
 
   return (
