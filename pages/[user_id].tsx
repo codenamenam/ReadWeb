@@ -16,7 +16,7 @@ export default function Home() {
   //키보드
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   useEffect(() => {
-    const handleKeyboardShow = (e) => {
+    const handleKeyboardShow = (e: any) => {
       const { height } = e;
       setKeyboardHeight(height);
     };
