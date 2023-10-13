@@ -111,7 +111,8 @@ export default function Home() {
 
   // 제출 기능
   const submit = async () => {
-    if (sessionStorage.getItem("inputData") == "") {
+    console.log(sessionStorage.getItem("inputData"));
+    if (sessionStorage.getItem("inputData")?.length == 0) {
       alert("요약 내용을 입력해주세요.");
     } else {
       const allData = {
