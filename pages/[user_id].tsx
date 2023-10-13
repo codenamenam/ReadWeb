@@ -292,14 +292,12 @@ export default function Home() {
           style={{
             position: "fixed",
             backgroundColor: "white",
-            bottom: 0,
+            bottom: `${keyboardHeight}px`,
             width: "100%",
             boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
             zIndex: 1000,
             borderRadius: "0px 0px 0 0",
             borderTop: "1px solid rgba(0, 0, 0, 0.08)",
-            transform: `translateY(-${keyboardHeight}px)`,
-            transition: "transform 0.25s ease-out",
           }}
         >
           <Flex direction={"column"} style={{ margin: "10px 20px 10px 20px" }}>
