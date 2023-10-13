@@ -13,6 +13,27 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Home() {
+  //키보드
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+  useEffect(() => {
+    const handleKeyboardShow = (e) => {
+      const { height } = e;
+      setKeyboardHeight(height);
+    };
+
+    const handleKeyboardHide = () => {
+      setKeyboardHeight(0);
+    };
+
+    window.addEventListener("keyboardDidShow", handleKeyboardShow);
+    window.addEventListener("keyboardDidHide", handleKeyboardHide);
+
+    return () => {
+      window.removeEventListener("keyboardDidShow", handleKeyboardShow);
+      window.removeEventListener("keyboardDidHide", handleKeyboardHide);
+    };
+  }, []);
+
   //지문 가져오기
   const [readData, setReadData] = useState("");
 
@@ -277,6 +298,8 @@ export default function Home() {
             zIndex: 1000,
             borderRadius: "0px 0px 0 0",
             borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+            transform: `translateY(-${keyboardHeight}px)`,
+            transition: "transform 0.25s ease-out",
           }}
         >
           <Flex direction={"column"} style={{ margin: "10px 20px 10px 20px" }}>
