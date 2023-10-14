@@ -37,7 +37,7 @@ export default function Home() {
   //키보드
   useEffect(() => {
     window.visualViewport?.addEventListener(
-      "resize",
+      "onresize",
       handleVisualViewportResize
     );
   }, []);
