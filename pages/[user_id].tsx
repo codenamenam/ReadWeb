@@ -12,26 +12,28 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-//키보드
-let prevVisualViewport = 0;
+let prevVisualViewport: number = 0;
 
-function handleVisualViewportResize() {
-  const currentVisualViewport = window.visualViewport.height;
+function handleVisualViewportResize(): void {
+  const currentVisualViewport: number | undefined =
+    window.visualViewport?.height;
 
   if (
+    currentVisualViewport !== undefined &&
     prevVisualViewport - 30 > currentVisualViewport &&
     prevVisualViewport - 100 < currentVisualViewport
   ) {
-    const scrollHeight = window.document.scrollingElement.scrollHeight;
-    const scrollTop = scrollHeight - window.visualViewport.height;
+    const scrollHeight: number =
+      window.document.scrollingElement?.scrollHeight || 0;
+    const scrollTop: number = scrollHeight - (currentVisualViewport || 0);
 
     window.scrollTo(0, scrollTop); // 입력창이 키보드에 가려지지 않도록 조절
   }
 
-  prevVisualViewport = window.visualViewport.height;
+  prevVisualViewport = currentVisualViewport || 0;
 }
 
-window.visualViewport.onresize = handleVisualViewportResize;
+window.visualViewport?.addEventListener("resize", handleVisualViewportResize);
 
 export default function Home() {
   //지문 가져오기
