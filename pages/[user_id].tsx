@@ -14,7 +14,7 @@ import { useRouter } from "next/router";
 
 let prevVisualViewport: number = 0;
 
-function handleVisualViewportResize(): void {
+function handleVisualViewportResize() {
   const currentVisualViewport: number | undefined =
     window.visualViewport?.height;
 
@@ -33,9 +33,15 @@ function handleVisualViewportResize(): void {
   prevVisualViewport = currentVisualViewport || 0;
 }
 
-window.visualViewport?.addEventListener("resize", handleVisualViewportResize);
-
 export default function Home() {
+  //키보드
+  useEffect(() => {
+    window.visualViewport?.addEventListener(
+      "resize",
+      handleVisualViewportResize
+    );
+  }, []);
+
   //지문 가져오기
   const [readData, setReadData] = useState("");
 
@@ -322,7 +328,6 @@ export default function Home() {
                       event.currentTarget.value
                     );
                   }}
-                  onClick={handleVisualViewportResize}
                 />
               </Flex>
 
