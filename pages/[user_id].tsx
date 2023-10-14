@@ -12,28 +12,28 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+//키보드
+let prevVisualViewport = 0;
+
+function handleVisualViewportResize() {
+  const currentVisualViewport = window.visualViewport.height;
+
+  if (
+    prevVisualViewport - 30 > currentVisualViewport &&
+    prevVisualViewport - 100 < currentVisualViewport
+  ) {
+    const scrollHeight = window.document.scrollingElement.scrollHeight;
+    const scrollTop = scrollHeight - window.visualViewport.height;
+
+    window.scrollTo(0, scrollTop); // 입력창이 키보드에 가려지지 않도록 조절
+  }
+
+  prevVisualViewport = window.visualViewport.height;
+}
+
+window.visualViewport.onresize = handleVisualViewportResize;
+
 export default function Home() {
-  //키보드
-  const [keyboardHeight, setKeyboardHeight] = useState(0);
-  useEffect(() => {
-    const handleKeyboardShow = (e: any) => {
-      const { height } = e;
-      setKeyboardHeight(height);
-    };
-
-    const handleKeyboardHide = () => {
-      setKeyboardHeight(0);
-    };
-
-    window.addEventListener("keyboardDidShow", handleKeyboardShow);
-    window.addEventListener("keyboardDidHide", handleKeyboardHide);
-
-    return () => {
-      window.removeEventListener("keyboardDidShow", handleKeyboardShow);
-      window.removeEventListener("keyboardDidHide", handleKeyboardHide);
-    };
-  }, []);
-
   //지문 가져오기
   const [readData, setReadData] = useState("");
 
@@ -292,7 +292,7 @@ export default function Home() {
           style={{
             position: "fixed",
             backgroundColor: "white",
-            bottom: `${keyboardHeight}px`,
+            bottom: "0px",
             width: "100%",
             boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
             zIndex: 1000,
@@ -320,6 +320,7 @@ export default function Home() {
                       event.currentTarget.value
                     );
                   }}
+                  onClick={handleVisualViewportResize}
                 />
               </Flex>
 
