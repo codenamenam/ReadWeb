@@ -17,7 +17,6 @@ let prevVisualViewport: number = 0;
 function handleVisualViewportResize() {
   const currentVisualViewport: number | undefined =
     window.visualViewport?.height;
-
   if (
     currentVisualViewport !== undefined &&
     prevVisualViewport - 30 > currentVisualViewport &&
@@ -216,8 +215,15 @@ export default function Home() {
 
   return (
     <>
-      <Center style={{ marginTop: "20px" }}>
-        <Flex direction={"column"} style={{ width: "340px" }}>
+      <Center
+        style={{
+          backgroundImage: "url('/web-background.png')",
+        }}
+      >
+        <Flex
+          direction={"column"}
+          style={{ width: "340px", marginTop: "20px" }}
+        >
           <Flex
             direction={"row"}
             align={"center"}
