@@ -239,7 +239,7 @@ export default function Home() {
                   margin: "5px 0 5px 0",
                 }}
               >
-                {month}월 {day}일
+                2023학년도 전국 문해력 테스트
               </Text>
               <Flex>
                 <Title size={20}>오늘의&nbsp;</Title>
