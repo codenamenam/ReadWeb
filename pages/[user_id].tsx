@@ -12,36 +12,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-let prevVisualViewport: number = 0;
-
-function handleVisualViewportResize() {
-  const currentVisualViewport: number | undefined =
-    window.visualViewport?.height;
-
-  if (
-    currentVisualViewport !== undefined &&
-    prevVisualViewport - 30 > currentVisualViewport &&
-    prevVisualViewport - 100 < currentVisualViewport
-  ) {
-    const scrollHeight: number =
-      window.document.scrollingElement?.scrollHeight || 0;
-    const scrollTop: number = scrollHeight - (currentVisualViewport || 0);
-
-    window.scrollTo(0, scrollTop); // 입력창이 키보드에 가려지지 않도록 조절
-  }
-
-  prevVisualViewport = currentVisualViewport || 0;
-}
-
 export default function Home() {
-  //키보드
-  useEffect(() => {
-    window.visualViewport?.addEventListener(
-      "onresize",
-      handleVisualViewportResize
-    );
-  }, []);
-
   //지문 가져오기
   const [readData, setReadData] = useState("");
 
@@ -216,152 +187,166 @@ export default function Home() {
 
   return (
     <>
-      <Center style={{ marginTop: "20px" }}>
-        <Flex direction={"column"} style={{ width: "340px" }}>
-          <Flex
-            direction={"row"}
-            align={"center"}
-            justify={"space-between"}
-            style={{ marginBottom: "20px" }}
-          >
-            <Flex direction={"column"}>
-              <Text
-                style={{
-                  color: "grey",
-                  fontWeight: "500",
-                  fontSize: "12px",
-                  margin: "5px 0 5px 0",
-                }}
-              >
-                {month}월 {day}일
-              </Text>
-              <Flex>
-                <Title size={20}>오늘의&nbsp;</Title>
-                <Title size={20} style={{ color: "#F21D76" }}>
-                  디펜스
-                </Title>
-              </Flex>
-            </Flex>
-            <RingProgress
-              label={
-                <Center>
-                  <Text
-                    style={{
-                      color: "grey",
-                      fontWeight: "500",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {formattedTime}
-                  </Text>
-                </Center>
-              }
-              sections={[{ value: progressRatio, color: "#F21D76" }]}
-              size={60}
-              thickness={5}
-              style={{ margin: 0, padding: 0 }}
-            ></RingProgress>
-          </Flex>
-          <div
-            style={{
-              backgroundColor: " rgba(250, 251, 252, 1)",
-              padding: "10px",
-              marginBottom: isSubmitted ? "50px" : "130px",
-            }}
-          >
-            <Text style={{ fontSize: "16px" }}>{readData}</Text>
-          </div>
-          {isSubmitted && (
-            <>
-              <Flex style={{ marginBottom: "20px" }}>
-                <Title size={20}>{userName}님의&nbsp;</Title>
-                <Title size={20}>요약&nbsp;</Title>
-                <Title size={20} style={{ color: "#F21D76" }}>
-                  다시보기
-                </Title>
-              </Flex>
-              <div
-                style={{
-                  backgroundColor: " rgba(250, 251, 252, 1)",
-                  padding: "10px",
-                  marginBottom: "130px",
-                }}
-              >
-                <Text style={{ fontSize: "15px", color: "grey" }}>
-                  {summaryData}
-                </Text>
-              </div>
-            </>
-          )}
-        </Flex>
-
-        <Flex
-          direction={"column"}
+      <Center style={{ width: "100%", height: "auto" }}>
+        <div
           style={{
-            position: "fixed",
-            backgroundColor: "white",
-            bottom: "0px",
-            width: "100%",
-            boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
-            zIndex: 1000,
-            borderRadius: "0px 0px 0 0",
-            borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+            height: "calc(100% + 1px)",
           }}
         >
-          <Flex direction={"column"} style={{ margin: "10px 20px 10px 20px" }}>
-            <Flex direction="row" style={{ justifyContent: "space-between" }}>
-              <Flex direction="column" style={{ width: "83%" }}>
-                <Textarea
-                  placeholder={
-                    "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
-                  }
-                  variant="unstyled"
-                  autosize
-                  minRows={2}
-                  maxRows={4}
-                  value={inputValue}
-                  onChange={(event) => {
-                    setInputValue(event.currentTarget.value);
-                    setInputValueLength(event.currentTarget.value.length);
-                    sessionStorage.setItem(
-                      "inputData",
-                      event.currentTarget.value
-                    );
-                  }}
-                />
-              </Flex>
-
-              <Flex
-                direction={"column"}
-                style={{ width: "14%", marginTop: "6px" }}
-                align={"center"}
-              >
-                <Button
+          <Flex
+            direction={"column"}
+            style={{ width: "340px", marginTop: "20px" }}
+          >
+            <Flex
+              direction={"row"}
+              align={"center"}
+              justify={"space-between"}
+              style={{ marginBottom: "20px" }}
+            >
+              <Flex direction={"column"}>
+                <Text
                   style={{
-                    width: "100%",
-                    height: "30px",
-                    padding: "0",
-                    margin: "0 0 3px 0",
+                    color: "grey",
+                    fontWeight: "500",
+                    fontSize: "12px",
+                    margin: "5px 0 5px 0",
                   }}
-                  color="ddColorMain"
-                  variant="filled"
-                  radius={5}
-                  onClick={submit}
                 >
-                  <Text style={{ fontSize: "15px", fontWeight: 700 }}>
-                    제출
+                  {month}월 {day}일
+                </Text>
+                <Flex>
+                  <Title size={20}>오늘의&nbsp;</Title>
+                  <Title size={20} style={{ color: "#F21D76" }}>
+                    디펜스
+                  </Title>
+                </Flex>
+              </Flex>
+              <RingProgress
+                label={
+                  <Center>
+                    <Text
+                      style={{
+                        color: "grey",
+                        fontWeight: "500",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {formattedTime}
+                    </Text>
+                  </Center>
+                }
+                sections={[{ value: progressRatio, color: "#F21D76" }]}
+                size={60}
+                thickness={5}
+                style={{ margin: 0, padding: 0 }}
+              ></RingProgress>
+            </Flex>
+            <div
+              style={{
+                backgroundColor: " rgba(250, 251, 252, 1)",
+                padding: "10px",
+                marginBottom: isSubmitted ? "50px" : "130px",
+              }}
+            >
+              <Text style={{ fontSize: "16px" }}>{readData}</Text>
+            </div>
+            {isSubmitted && (
+              <>
+                <Flex style={{ marginBottom: "20px" }}>
+                  <Title size={20}>{userName}님의&nbsp;</Title>
+                  <Title size={20}>요약&nbsp;</Title>
+                  <Title size={20} style={{ color: "#F21D76" }}>
+                    다시보기
+                  </Title>
+                </Flex>
+                <div
+                  style={{
+                    backgroundColor: " rgba(250, 251, 252, 1)",
+                    padding: "10px",
+                    marginBottom: "130px",
+                  }}
+                >
+                  <Text style={{ fontSize: "15px", color: "grey" }}>
+                    {summaryData}
                   </Text>
-                </Button>
-                <Flex style={{ marginBottom: "15px" }}>
-                  <Text style={{ color: "grey", fontSize: "12px" }}>
-                    {inputValueLength}
-                  </Text>
-                  <Text style={{ color: "grey", fontSize: "12px" }}>/200</Text>
+                </div>
+              </>
+            )}
+          </Flex>
+
+          <Flex
+            direction={"column"}
+            style={{
+              position: "fixed",
+              backgroundColor: "white",
+              bottom: "0px",
+              width: "100%",
+              boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
+              zIndex: 1000,
+              borderRadius: "0px 0px 0 0",
+              borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+            }}
+          >
+            <Flex
+              direction={"column"}
+              style={{ margin: "10px 20px 10px 20px" }}
+            >
+              <Flex direction="row" style={{ justifyContent: "space-between" }}>
+                <Flex direction="column" style={{ width: "83%" }}>
+                  <Textarea
+                    placeholder={
+                      "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
+                    }
+                    variant="unstyled"
+                    autosize
+                    minRows={2}
+                    maxRows={4}
+                    value={inputValue}
+                    onChange={(event) => {
+                      setInputValue(event.currentTarget.value);
+                      setInputValueLength(event.currentTarget.value.length);
+                      sessionStorage.setItem(
+                        "inputData",
+                        event.currentTarget.value
+                      );
+                    }}
+                  />
+                </Flex>
+
+                <Flex
+                  direction={"column"}
+                  style={{ width: "14%", marginTop: "6px" }}
+                  align={"center"}
+                >
+                  <Button
+                    style={{
+                      width: "100%",
+                      height: "30px",
+                      padding: "0",
+                      margin: "0 0 3px 0",
+                    }}
+                    color="ddColorMain"
+                    variant="filled"
+                    radius={5}
+                    onClick={submit}
+                  >
+                    <Text style={{ fontSize: "15px", fontWeight: 700 }}>
+                      제출
+                    </Text>
+                  </Button>
+                  <Flex style={{ marginBottom: "15px" }}>
+                    <Text style={{ color: "grey", fontSize: "12px" }}>
+                      {inputValueLength}
+                    </Text>
+                    <Text style={{ color: "grey", fontSize: "12px" }}>
+                      /200
+                    </Text>
+                  </Flex>
                 </Flex>
               </Flex>
             </Flex>
           </Flex>
-        </Flex>
+        </div>
       </Center>
     </>
   );

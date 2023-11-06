@@ -4,7 +4,7 @@ import "@mantine/core/styles.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <main style={{ position: "relative", width: "100%", overflowY: "auto" }}>
       <MantineProvider
         theme={{
           colors: {
@@ -37,6 +37,6 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <Component {...pageProps} />
       </MantineProvider>
-    </>
+    </main>
   );
 }
