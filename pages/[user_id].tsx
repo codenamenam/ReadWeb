@@ -186,15 +186,7 @@ export default function Home() {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", overflowY: "auto" }}>
-      <div
-        style={{
-          position: "absolute",
-          left: "0",
-          width: "1px",
-          height: "calc(100% + 1px)",
-        }}
-      ></div>
+    <div>
       <div style={{ width: "100%", height: "auto" }}>
         <Center>
           <Flex
