@@ -256,13 +256,13 @@ export default function Home() {
           <div
             className={gowun.className}
             style={{
-              backgroundColor: " rgba(255, 255, 255, 0.7)",
+              backgroundColor: " rgba(255, 255, 255, 0.5)",
               padding: "7px 10px 7px 10px",
               marginBottom: isSubmitted ? "50px" : "130px",
-              borderRadius: "10px",
+              borderRadius: "5px",
             }}
           >
-            <Text style={{ fontSize: "16px" }}>{readData}</Text>
+            <Text style={{ fontSize: "15px" }}>{readData}</Text>
           </div>
           {isSubmitted && (
             <>
