@@ -277,80 +277,75 @@ export default function Home() {
               </>
             )}
           </Flex>
+        </Center>
 
-          <Flex
-            direction={"column"}
-            style={{
-              position: "fixed",
-              backgroundColor: "white",
-              bottom: "0px",
-              width: "100%",
-              boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
-              zIndex: 1000,
-              borderRadius: "0px 0px 0 0",
-              borderTop: "1px solid rgba(0, 0, 0, 0.08)",
-            }}
-          >
-            <Flex
-              direction={"column"}
-              style={{ margin: "10px 20px 10px 20px" }}
-            >
-              <Flex direction="row" style={{ justifyContent: "space-between" }}>
-                <Flex direction="column" style={{ width: "83%" }}>
-                  <Textarea
-                    placeholder={
-                      "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
-                    }
-                    variant="unstyled"
-                    autosize
-                    minRows={2}
-                    maxRows={4}
-                    value={inputValue}
-                    onChange={(event) => {
-                      setInputValue(event.currentTarget.value);
-                      setInputValueLength(event.currentTarget.value.length);
-                      sessionStorage.setItem(
-                        "inputData",
-                        event.currentTarget.value
-                      );
-                    }}
-                  />
-                </Flex>
+        <Flex
+          direction={"column"}
+          style={{
+            position: "fixed",
+            backgroundColor: "white",
+            bottom: "0px",
+            width: "100%",
+            boxShadow: "0px 0px 0px 0px rgba(37, 38, 46, 0.15)",
+            zIndex: 1000,
+            borderRadius: "0px 0px 0 0",
+            borderTop: "1px solid rgba(0, 0, 0, 0.08)",
+          }}
+        >
+          <Flex direction={"column"} style={{ margin: "10px 20px 10px 20px" }}>
+            <Flex direction="row" style={{ justifyContent: "space-between" }}>
+              <Flex direction="column" style={{ width: "83%" }}>
+                <Textarea
+                  placeholder={
+                    "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
+                  }
+                  variant="unstyled"
+                  autosize
+                  minRows={2}
+                  maxRows={4}
+                  value={inputValue}
+                  onChange={(event) => {
+                    setInputValue(event.currentTarget.value);
+                    setInputValueLength(event.currentTarget.value.length);
+                    sessionStorage.setItem(
+                      "inputData",
+                      event.currentTarget.value
+                    );
+                  }}
+                />
+              </Flex>
 
-                <Flex
-                  direction={"column"}
-                  style={{ width: "14%", marginTop: "6px" }}
-                  align={"center"}
+              <Flex
+                direction={"column"}
+                style={{ width: "14%", marginTop: "6px" }}
+                align={"center"}
+              >
+                <Button
+                  style={{
+                    width: "100%",
+                    height: "30px",
+                    padding: "0",
+                    margin: "0 0 3px 0",
+                  }}
+                  color="ddColorMain"
+                  variant="filled"
+                  radius={5}
+                  onClick={submit}
                 >
-                  <Button
-                    style={{
-                      width: "100%",
-                      height: "30px",
-                      padding: "0",
-                      margin: "0 0 3px 0",
-                    }}
-                    color="ddColorMain"
-                    variant="filled"
-                    radius={5}
-                    onClick={submit}
-                  >
-                    <Text style={{ fontSize: "15px", fontWeight: 700 }}>
-                      제출
-                    </Text>
-                  </Button>
-                  <Flex style={{ marginBottom: "15px" }}>
-                    <Text style={{ color: "grey", fontSize: "12px" }}>
-                      {inputValueLength}
-                    </Text>
-                    <Text style={{ color: "grey", fontSize: "12px" }}>
-                      /200
-                    </Text>
-                  </Flex>
+                  <Text style={{ fontSize: "15px", fontWeight: 700 }}>
+                    제출
+                  </Text>
+                </Button>
+                <Flex style={{ marginBottom: "15px" }}>
+                  <Text style={{ color: "grey", fontSize: "12px" }}>
+                    {inputValueLength}
+                  </Text>
+                  <Text style={{ color: "grey", fontSize: "12px" }}>/200</Text>
                 </Flex>
               </Flex>
             </Flex>
           </Flex>
-        </Center>
+        </Flex>
       </div>
     </div>
   );
