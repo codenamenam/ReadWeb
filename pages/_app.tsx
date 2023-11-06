@@ -4,39 +4,37 @@ import "@mantine/core/styles.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main style={{ position: "relative", width: "100%", overflowY: "auto" }}>
-      <MantineProvider
-        theme={{
-          colors: {
-            ddColorMain: [
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-              "rgba(242, 29, 118, 1)",
-            ],
-            ddColorBackground: [
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-              "rgba(242, 29, 118, 0.15)",
-            ],
-          },
-        }}
-      >
-        <Component {...pageProps} />
-      </MantineProvider>
-    </main>
+    <MantineProvider
+      theme={{
+        colors: {
+          ddColorMain: [
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+            "rgba(242, 29, 118, 1)",
+          ],
+          ddColorBackground: [
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+            "rgba(242, 29, 118, 0.15)",
+          ],
+        },
+      }}
+    >
+      <Component {...pageProps} />
+    </MantineProvider>
   );
 }
