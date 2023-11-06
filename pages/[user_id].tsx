@@ -186,95 +186,93 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <div style={{ width: "100%", height: "auto" }}>
-        <Center>
+    <>
+      <Center>
+        <Flex
+          direction={"column"}
+          style={{ width: "340px", marginTop: "20px" }}
+        >
           <Flex
-            direction={"column"}
-            style={{ width: "340px", marginTop: "20px" }}
+            direction={"row"}
+            align={"center"}
+            justify={"space-between"}
+            style={{ marginBottom: "20px" }}
           >
-            <Flex
-              direction={"row"}
-              align={"center"}
-              justify={"space-between"}
-              style={{ marginBottom: "20px" }}
-            >
-              <Flex direction={"column"}>
-                <Text
-                  style={{
-                    color: "grey",
-                    fontWeight: "500",
-                    fontSize: "12px",
-                    margin: "5px 0 5px 0",
-                  }}
-                >
-                  {month}월 {day}일
-                </Text>
-                <Flex>
-                  <Title size={20}>오늘의&nbsp;</Title>
-                  <Title size={20} style={{ color: "#F21D76" }}>
-                    디펜스
-                  </Title>
-                </Flex>
+            <Flex direction={"column"}>
+              <Text
+                style={{
+                  color: "grey",
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  margin: "5px 0 5px 0",
+                }}
+              >
+                {month}월 {day}일
+              </Text>
+              <Flex>
+                <Title size={20}>오늘의&nbsp;</Title>
+                <Title size={20} style={{ color: "#F21D76" }}>
+                  디펜스
+                </Title>
               </Flex>
-              <RingProgress
-                label={
-                  <Center>
-                    <Text
-                      style={{
-                        color: "grey",
-                        fontWeight: "500",
-                        fontSize: "12px",
-                      }}
-                    >
-                      {formattedTime}
-                    </Text>
-                  </Center>
-                }
-                sections={[{ value: progressRatio, color: "#F21D76" }]}
-                size={60}
-                thickness={5}
-                style={{ margin: 0, padding: 0 }}
-              ></RingProgress>
             </Flex>
-            <div
-              style={{
-                backgroundColor: " rgba(250, 251, 252, 1)",
-                padding: "10px",
-                marginBottom: isSubmitted ? "50px" : "130px",
-              }}
-            >
-              <Text style={{ fontSize: "16px" }}>{readData}</Text>
-            </div>
-            {isSubmitted && (
-              <>
-                <Flex style={{ marginBottom: "20px" }}>
-                  <Title size={20}>{userName}님의&nbsp;</Title>
-                  <Title size={20}>요약&nbsp;</Title>
-                  <Title size={20} style={{ color: "#F21D76" }}>
-                    다시보기
-                  </Title>
-                </Flex>
-                <div
-                  style={{
-                    backgroundColor: " rgba(250, 251, 252, 1)",
-                    padding: "10px",
-                    marginBottom: "130px",
-                  }}
-                >
-                  <Text style={{ fontSize: "15px", color: "grey" }}>
-                    {summaryData}
+            <RingProgress
+              label={
+                <Center>
+                  <Text
+                    style={{
+                      color: "grey",
+                      fontWeight: "500",
+                      fontSize: "12px",
+                    }}
+                  >
+                    {formattedTime}
                   </Text>
-                </div>
-              </>
-            )}
+                </Center>
+              }
+              sections={[{ value: progressRatio, color: "#F21D76" }]}
+              size={60}
+              thickness={5}
+              style={{ margin: 0, padding: 0 }}
+            ></RingProgress>
           </Flex>
-        </Center>
+          <div
+            style={{
+              backgroundColor: " rgba(250, 251, 252, 1)",
+              padding: "10px",
+              marginBottom: isSubmitted ? "50px" : "130px",
+            }}
+          >
+            <Text style={{ fontSize: "16px" }}>{readData}</Text>
+          </div>
+          {isSubmitted && (
+            <>
+              <Flex style={{ marginBottom: "20px" }}>
+                <Title size={20}>{userName}님의&nbsp;</Title>
+                <Title size={20}>요약&nbsp;</Title>
+                <Title size={20} style={{ color: "#F21D76" }}>
+                  다시보기
+                </Title>
+              </Flex>
+              <div
+                style={{
+                  backgroundColor: " rgba(250, 251, 252, 1)",
+                  padding: "10px",
+                  marginBottom: "130px",
+                }}
+              >
+                <Text style={{ fontSize: "15px", color: "grey" }}>
+                  {summaryData}
+                </Text>
+              </div>
+            </>
+          )}
+        </Flex>
 
         <Flex
           direction={"column"}
           style={{
-            position: "sticky",
+            position: "fixed",
             backgroundColor: "white",
             bottom: "0px",
             width: "100%",
@@ -338,7 +336,7 @@ export default function Home() {
             </Flex>
           </Flex>
         </Flex>
-      </div>
-    </div>
+      </Center>
+    </>
   );
 }
