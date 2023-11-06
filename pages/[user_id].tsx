@@ -7,11 +7,18 @@ import {
   RingProgress,
   Textarea,
 } from "@mantine/core";
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { Gowun_Batang, Noto_Sans_KR } from "next/font/google";
 
+const gowun = Gowun_Batang({ subsets: ["latin"], weight: "400" });
+const noto = Noto_Sans_KR({
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// 키보드 고정하려고 했으나 실패
 let prevVisualViewport: number = 0;
 
 function handleVisualViewportResize() {
@@ -222,57 +229,37 @@ export default function Home() {
       >
         <Flex
           direction={"column"}
+          align={"center"}
           style={{ width: "340px", marginTop: "20px" }}
+          className={noto.className}
         >
-          <Flex
-            direction={"row"}
-            align={"center"}
-            justify={"space-between"}
-            style={{ marginBottom: "20px" }}
-          >
-            <Flex direction={"column"}>
-              <Text
-                style={{
-                  color: "grey",
-                  fontWeight: "500",
-                  fontSize: "12px",
-                  margin: "5px 0 5px 0",
-                }}
-              >
-                2023학년도 전국 문해력 테스트
-              </Text>
-              <Flex>
-                <Title size={20}>오늘의&nbsp;</Title>
-                <Title size={20} style={{ color: "#F21D76" }}>
-                  디펜스
-                </Title>
-              </Flex>
-            </Flex>
-            <RingProgress
-              label={
-                <Center>
-                  <Text
-                    style={{
-                      color: "grey",
-                      fontWeight: "500",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {formattedTime}
-                  </Text>
-                </Center>
-              }
-              sections={[{ value: progressRatio, color: "#F21D76" }]}
-              size={60}
-              thickness={5}
-              style={{ margin: 0, padding: 0 }}
-            ></RingProgress>
-          </Flex>
-          <div
+          <Text
             style={{
-              backgroundColor: " rgba(250, 251, 252, 1)",
-              padding: "10px",
+              color: "grey",
+              fontWeight: "600",
+              fontSize: "18px",
+            }}
+          >
+            2023학년도
+          </Text>
+
+          <Text
+            style={{
+              marginBottom: "20px",
+              fontSize: "25px",
+              fontWeight: "700",
+            }}
+          >
+            전국 문해력 테스트 국어영역
+          </Text>
+
+          <div
+            className={gowun.className}
+            style={{
+              backgroundColor: " rgba(255, 255, 255, 0.7)",
+              padding: "7px 10px 7px 10px",
               marginBottom: isSubmitted ? "50px" : "130px",
+              borderRadius: "10px",
             }}
           >
             <Text style={{ fontSize: "16px" }}>{readData}</Text>
@@ -318,9 +305,7 @@ export default function Home() {
             <Flex direction="row" style={{ justifyContent: "space-between" }}>
               <Flex direction="column" style={{ width: "83%" }}>
                 <Textarea
-                  placeholder={
-                    "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
-                  }
+                  placeholder={"글을 읽고 200자 이내로 요약해주세요."}
                   variant="unstyled"
                   autosize
                   minRows={2}
