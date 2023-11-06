@@ -257,9 +257,9 @@ export default function Home() {
             className={gowun.className}
             style={{
               backgroundColor: " rgba(255, 255, 255, 1)",
-              padding: "7px 10px 7px 10px",
+              padding: "10px",
               marginBottom: isSubmitted ? "50px" : "130px",
-              borderRadius: "5px",
+              borderRadius: "7px",
             }}
           >
             <Text style={{ fontSize: "15.5px" }}>{readData}</Text>
