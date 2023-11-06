@@ -213,7 +213,7 @@ export default function Home() {
       };
 
       const result = await axios.post("../api/postSubmitData", allData);
-      alert("요약이 제출되었습니다. \n8시에 결과를 보내드릴께요!");
+      alert("요약이 제출되었습니다.");
       setInputValue("");
       sessionStorage.setItem("inputData", "");
       setInputValueLength(0);
@@ -256,13 +256,13 @@ export default function Home() {
           <div
             className={gowun.className}
             style={{
-              backgroundColor: " rgba(255, 255, 255, 0.5)",
+              backgroundColor: " rgba(255, 255, 255, 1)",
               padding: "7px 10px 7px 10px",
               marginBottom: isSubmitted ? "50px" : "130px",
               borderRadius: "5px",
             }}
           >
-            <Text style={{ fontSize: "15px" }}>{readData}</Text>
+            <Text style={{ fontSize: "15.5px" }}>{readData}</Text>
           </div>
           {isSubmitted && (
             <>
