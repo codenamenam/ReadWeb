@@ -1,12 +1,4 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Text,
-  Title,
-  RingProgress,
-  Textarea,
-} from "@mantine/core";
+import { Button, Center, Flex, Text, Title, Textarea } from "@mantine/core";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -18,39 +10,9 @@ const noto = Noto_Sans_KR({
   display: "swap",
 });
 
-// 키보드 고정하려고 했으나 실패
-let prevVisualViewport: number = 0;
-
-function handleVisualViewportResize() {
-  const currentVisualViewport: number | undefined =
-    window.visualViewport?.height;
-  if (
-    currentVisualViewport !== undefined &&
-    prevVisualViewport - 30 > currentVisualViewport &&
-    prevVisualViewport - 100 < currentVisualViewport
-  ) {
-    const scrollHeight: number =
-      window.document.scrollingElement?.scrollHeight || 0;
-    const scrollTop: number = scrollHeight - (currentVisualViewport || 0);
-
-    window.scrollTo(0, scrollTop); // 입력창이 키보드에 가려지지 않도록 조절
-  }
-
-  prevVisualViewport = currentVisualViewport || 0;
-}
-
 export default function Home() {
-  //키보드
-  useEffect(() => {
-    window.visualViewport?.addEventListener(
-      "onresize",
-      handleVisualViewportResize
-    );
-  }, []);
-
-  //지문 가져오기
+  // 전문테 지문 가져오기
   const [readData, setReadData] = useState("");
-
   const handleReadData = async () => {
     const result = await axios.get("../api/getReadData");
     if (result.status === 200) {
@@ -75,61 +37,16 @@ export default function Home() {
     }
   }, [router.isReady]);
 
-  //날짜 가져오기
-  const today = new Date();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-
-  //타이머
-  const [timeRemaining, setTimeRemaining] = useState(300);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      // 타이머 콜백 함수
-      if (timeRemaining > 0) {
-        // 시간이 남아있을 때
-        setTimeRemaining(timeRemaining - 1); // 1초씩 감소
-      } else {
-        clearInterval(timer); // 시간이 다 되면 타이머 종료
-      }
-    }, 1000); // 1초마다 실행
-
-    const storedInputData = sessionStorage.getItem("inputData");
-    const inputValue: string | null =
-      storedInputData !== null ? storedInputData : ""; // 또는 기본값을 다른 값으로 설정할 수 있습니다
-
-    setInputValue(inputValue);
-    setInputValueLength(inputValue.length);
-
-    return () => {
-      clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
-      sessionStorage.setItem("timeRemaining", timeRemaining.toString());
-    };
-  }, [timeRemaining]);
-
-  const progressRatio = (timeRemaining / 300) * 100;
-
-  // 초를 분과 초로 변환
-  const minutes = Math.floor(timeRemaining / 60);
-  const seconds = timeRemaining % 60;
-
-  // 시간을 00:00 형식으로 포맷
-  const formattedTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-
   // 텍스트 입력
   const [inputValue, setInputValue] = useState("");
   const [inputValueLength, setInputValueLength] = useState(0);
 
-  // 요약 다시보기
+  // 요약 제출 확인 - 작업중
   /**
-   * URL에 사용자 식별 id(10.9 DB기준: SummaryData 테이블의 user_id) 전달됨
-   * 그 id를 가져와야 됨
-   * 챗봇에서 쏴줄 때, user_id가 매일 암호화되어 전송되어야 함
-   * -> 사용자가 즐겨찾기 해놓고 새로고침하면서 못쓰게 하려고..
-   *
-   *
-   * 가져온 아이디에 기반하여 getSummaryData 요청을 보냄
-   * 1. 사용자가 요약을 제출했다면: 하단에 요약 다시보기 컴포넌트가 보임
-   * 2. 사용자가 요약을 제출하지 않았다면: 아무것도 안뜸
+   * 사용자가 요약을 제출했다면 1주일 뒤에 다시 사용할 수 있음.
+   * 애러코드: 400
+   * message: already exists
+   * description: Try again next Monday
    */
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [summaryData, setSummaryData] = useState("");
@@ -144,7 +61,7 @@ export default function Home() {
     }
   };
 
-  // 제출 기능
+  // 요약 제출 기능
   const submit = async () => {
     console.log(sessionStorage.getItem("inputData"));
     if (isSubmitted) {
