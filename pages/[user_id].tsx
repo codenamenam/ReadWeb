@@ -274,7 +274,7 @@ export default function Home() {
         <Flex
           direction={"column"}
           style={{
-            position: "fixed",
+            position: "sticky",
             backgroundColor: "white",
             bottom: "0px",
             width: "100%",
