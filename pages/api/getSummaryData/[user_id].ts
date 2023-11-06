@@ -14,7 +14,7 @@ export default async function handler(
     // user_id를 가져옴
     const { user_id } = req.query;
     try {
-      const { data, error } = await supabase.rpc("get_summary_data", {
+      const { data, error } = await supabase.rpc("get_school_summary_data", {
         input_user_id: user_id,
       });
       res.status(200).json({ body: data });

@@ -147,7 +147,9 @@ export default function Home() {
   // 제출 기능
   const submit = async () => {
     console.log(sessionStorage.getItem("inputData"));
-    if (sessionStorage.getItem("inputData")?.length == 0) {
+    if (isSubmitted) {
+      alert("이미 요약이 제출되었습니다. 조금만 기다려주세요.");
+    } else if (sessionStorage.getItem("inputData")?.length == 0) {
       alert("요약 내용을 입력해주세요.");
     } else {
       const allData = {
@@ -213,7 +215,7 @@ export default function Home() {
       };
 
       const result = await axios.post("../api/postSubmitData", allData);
-      alert("요약이 제출되었습니다.");
+      alert("요약이 제출되었습니다. 잠시 후 채점 결과를 알려드릴께요!");
       setInputValue("");
       sessionStorage.setItem("inputData", "");
       setInputValueLength(0);
@@ -264,28 +266,6 @@ export default function Home() {
           >
             <Text style={{ fontSize: "15.5px" }}>{readData}</Text>
           </div>
-          {isSubmitted && (
-            <>
-              <Flex style={{ marginBottom: "20px" }}>
-                <Title size={20}>{userName}님의&nbsp;</Title>
-                <Title size={20}>요약&nbsp;</Title>
-                <Title size={20} style={{ color: "#F21D76" }}>
-                  다시보기
-                </Title>
-              </Flex>
-              <div
-                style={{
-                  backgroundColor: " rgba(250, 251, 252, 1)",
-                  padding: "10px",
-                  marginBottom: "130px",
-                }}
-              >
-                <Text style={{ fontSize: "15px", color: "grey" }}>
-                  {summaryData}
-                </Text>
-              </div>
-            </>
-          )}
         </Flex>
 
         <Flex
