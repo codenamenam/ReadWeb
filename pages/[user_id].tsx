@@ -33,7 +33,7 @@ export default function Home() {
 
     if (user_id && typeof user_id == "string") {
       setUserId(user_id);
-      handleSummaryData(user_id);
+      //handleSummaryData(user_id);
     }
   }, [router.isReady]);
 
@@ -63,79 +63,33 @@ export default function Home() {
 
   // 요약 제출 기능
   const submit = async () => {
-    console.log(sessionStorage.getItem("inputData"));
     if (isSubmitted) {
       alert("이미 요약이 제출되었습니다. 조금만 기다려주세요.");
-    } else if (sessionStorage.getItem("inputData")?.length == 0) {
+    } else if (!sessionStorage.getItem("inputData")) {
       alert("요약 내용을 입력해주세요.");
     } else {
       const allData = {
-        bot: {
-          id: "64bb62cd84644d346efde407",
-          name: "도파민 디펜스 봇",
-        },
-        intent: {
-          id: "64c791901a44040a688c7491",
-          name: "요약하기",
-          extra: {
-            reason: {
-              code: 0,
-              message: "OK",
-            },
-          },
-        },
-        action: {
-          id: "64e439e08c33dd465729751d",
-          name: "post-submit-summary",
-          params: {
-            summary: "",
-          },
-          detailParams: {
-            summary: {
-              groupName: "",
-              origin: inputValue,
-              value: "",
-            },
-          },
-        },
-        clientExtra: {},
-        userRequest: {
-          block: {
-            id: "64c791901a44040a688c7491",
-            name: "요약하기",
-          },
-          user: {
-            id: "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-            type: "botUserKey",
-            properties: {
-              botUserKey:
-                "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-              appUserStatus: "REGISTERED",
-              isFriend: true,
-              app_user_status: "REGISTERED",
-              app_user_id: user_id,
-              plusfriendUserKey: "ckUy2724egt1",
-              appUserId: user_id,
-              bot_user_key:
-                "4025ce2f5726e5b4e585f3d172c1fe97156ba4ae381ab1b756583e9fbf8982a22f",
-              plusfriend_user_key: "ckUy2724egt1",
-            },
-          },
-          utterance: "요약하기",
-          params: {
-            surface: "Kakaotalk.plusfriend",
-          },
-          lang: "ko",
-          timezone: "Asia/Seoul",
-        },
-        contexts: [],
+        summary: sessionStorage.getItem("inputData"),
+        bot_user_key: user_id,
       };
 
       const result = await axios.post("../api/postSubmitData", allData);
-      alert("요약이 제출되었습니다. 잠시 후 채점 결과를 알려드릴께요!");
-      setInputValue("");
-      sessionStorage.setItem("inputData", "");
-      setInputValueLength(0);
+      try {
+        if (result.status === 200) {
+          if (result.data == 200) {
+            alert("요약이 제출되었습니다. 잠시 후 채점 결과를 알려드릴께요!");
+            setInputValue("");
+            sessionStorage.setItem("inputData", "");
+            setInputValueLength(0);
+          } else if (result.data == 400) {
+            alert("이미 참여하셨습니다! 다음주 월요일에 또 참여해주세요!");
+          } else {
+            alert("오류가 발생하였습니다.");
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
