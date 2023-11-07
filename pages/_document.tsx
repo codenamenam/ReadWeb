@@ -5,8 +5,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta title="전국 문해력 테스트: 국어영역" />
-        <meta content="/jmt-banner.jpeg" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scaleable=0"
