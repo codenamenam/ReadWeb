@@ -16,20 +16,20 @@ export default async function handler(
         "post-functions",
         {
           headers: {
-            "Function-Name": "submit-summary",
+            "Function-Name": "jmt-submit-summary-web",
           },
           body: req.body,
         }
       );
 
-      res.status(200).json("asdf");
+      if (data["message"]) {
+        res.status(200).json(200);
+      } else if (data["error"]["code"] === 400) {
+        res.status(200).json(400);
+      }
     }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to insert data" });
   }
-}
-
-function sleep(sec: number) {
-  return new Promise((resolve) => setTimeout(resolve, sec * 1000));
 }
