@@ -52,14 +52,14 @@ export default function Home() {
   const [summaryData, setSummaryData] = useState("");
   const [userName, setUserName] = useState("");
 
-  const handleSummaryData = async (user_id: string | string[]) => {
-    const result = await axios.get("../api/getSummaryData/" + user_id);
-    if (result.status === 200 && result.data.body != null) {
-      setIsSubmitted(true);
-      setSummaryData(result.data.body[0]["summary"]);
-      setUserName(result.data.body[0]["user_name"]);
-    }
-  };
+  // const handleSummaryData = async (user_id: string | string[]) => {
+  //   const result = await axios.get("../api/getSummaryData/" + user_id);
+  //   if (result.status === 200 && result.data.body != null) {
+  //     setIsSubmitted(true);
+  //     setSummaryData(result.data.body[0]["summary"]);
+  //     setUserName(result.data.body[0]["user_name"]);
+  //   }
+  // };
 
   // 요약 제출 기능
   const submit = async () => {
@@ -81,6 +81,7 @@ export default function Home() {
             setInputValue("");
             sessionStorage.setItem("inputData", "");
             setInputValueLength(0);
+            setIsSubmitted(true);
           } else if (result.data == 400) {
             alert("이미 참여하셨습니다! 다음주 월요일에 또 참여해주세요!");
           } else {
