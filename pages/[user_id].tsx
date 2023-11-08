@@ -11,14 +11,14 @@ const noto = Noto_Sans_KR({
 });
 
 export default function Home() {
-  // 전문테 지문 가져오기
-  const [readData, setReadData] = useState("");
-  const handleReadData = async () => {
-    const result = await axios.get("../api/getReadData");
-    if (result.status === 200) {
-      setReadData(result.data.body);
-    }
-  };
+  // 전문테 지문 가져오기 - 하드코딩
+  // const [readData, setReadData] = useState("");
+  // const handleReadData = async () => {
+  //   const result = await axios.get("../api/getReadData");
+  //   if (result.status === 200) {
+  //     setReadData(result.data.body);
+  //   }
+  // };
 
   // 동적 라우팅
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function Home() {
     if (!router.isReady) {
       return;
     }
-    handleReadData();
+    // handleReadData();
 
     const { user_id } = router.query;
 
@@ -96,11 +96,7 @@ export default function Home() {
 
   return (
     <>
-      <Center
-        style={{
-          backgroundImage: "url('/web-background.png')",
-        }}
-      >
+      <Center>
         <Flex
           direction={"column"}
           align={"center"}
@@ -136,7 +132,22 @@ export default function Home() {
               borderRadius: "7px",
             }}
           >
-            <Text style={{ fontSize: "15.5px" }}>{readData}</Text>
+            <Text style={{ fontSize: "15.5px" }}>
+              사람들은 사막보다 푸른 초원을 더 아름답다고 생각한다. 이처럼
+              인간이 왜 특정한 환경이나 공간적 배치를 더 아름답다고 생각하는지
+              일반적인 설명이 필요하다. 조경 연구자 제이 애플턴의 ‘조망과 피신’
+              이론에 따르면 인간은 남들에게 들키지 않고 바깥을 내다볼 수 있는
+              곳을 선호 하게끔 진화했다. 장애물에 가리지 않는 열린 시야는 물이나
+              음식물 같은 자원을 찾거나 포식자나 악당이 다가오는 것을 재빨리
+              알아차리는 데 유리하다. 눈이 달려 있지 않은 머리 위나 등 뒤를 가려
+              주는 피난처는 나를 포식자나 악당으로부터 보호해 준다. 산등성이에
+              난 동굴 저 푸른 초원 위의 그림 같은 집, 동화 속 공주가 사는 성채,
+              한쪽 벽면이 통유리로 된 층 카페 등은 모두 조망과 피신을 동시에
+              제공하기 때문에 우리의 마음을 사로잡는다. 풍수지리설에서
+              배산임수(背山臨水), 즉 뒤로 산이나 언덕을 등지고 앞에 강이나
+              개울을 바라보는 집을 높게 쳐주는 것에도 심오한 진화적 근거가 깔려
+              있는 셈이다.
+            </Text>
           </div>
         </Flex>
 

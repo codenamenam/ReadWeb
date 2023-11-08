@@ -10,7 +10,12 @@ export default function Document() {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scaleable=0"
         />
       </Head>
-      <body>
+      <body
+        style={{
+          backgroundImage: "url('/web-background.png')",
+          backgroundRepeat: "repeat-y",
+        }}
+      >
         <Main />
         <NextScript />
       </body>
