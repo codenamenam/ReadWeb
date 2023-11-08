@@ -62,17 +62,21 @@ export default function Home() {
   // };
 
   // 요약 제출 기능
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const submit = async () => {
     if (isSubmitted) {
       alert("이미 요약이 제출되었습니다. 조금만 기다려주세요.");
     } else if (!sessionStorage.getItem("inputData")) {
       alert("요약 내용을 입력해주세요.");
     } else {
+      setIsSubmitted(true);
+
       const allData = {
         summary: sessionStorage.getItem("inputData"),
         bot_user_key: user_id,
       };
 
+      setButtonDisabled(true);
       const result = await axios.post("../api/postSubmitData", allData);
       try {
         if (result.status === 200) {
@@ -81,10 +85,10 @@ export default function Home() {
             setInputValue("");
             sessionStorage.setItem("inputData", "");
             setInputValueLength(0);
-            setIsSubmitted(true);
           } else if (result.data == 400) {
             alert("이미 참여하셨습니다! 다음주 월요일에 또 참여해주세요!");
           } else {
+            setButtonDisabled(true);
             alert("오류가 발생하였습니다.");
           }
         }
@@ -201,6 +205,7 @@ export default function Home() {
                   variant="filled"
                   radius={5}
                   onClick={submit}
+                  disabled={isButtonDisabled}
                 >
                   <Text style={{ fontSize: "15px", fontWeight: 700 }}>
                     제출
