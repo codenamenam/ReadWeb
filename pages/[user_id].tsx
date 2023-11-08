@@ -81,7 +81,7 @@ export default function Home() {
       try {
         if (result.status === 200) {
           if (result.data == 200) {
-            alert("요약이 제출되었습니다. 잠시 후 채점 결과를 알려드릴께요!");
+            alert("요약이 제출되었습니다. 잠시 뒤 결과를 알려드릴께요!");
             setInputValue("");
             sessionStorage.setItem("inputData", "");
             setInputValueLength(0);
