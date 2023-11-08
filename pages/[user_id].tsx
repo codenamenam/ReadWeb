@@ -77,6 +77,13 @@ export default function Home() {
       };
 
       setButtonDisabled(true);
+
+      if (inputValueLength > 200) {
+        alert("요약이 너무 길어요! 200자 이내로 요약을 해주세요.");
+        setIsSubmitted(false);
+        setButtonDisabled(false);
+        return;
+      }
       const result = await axios.post("../api/postSubmitData", allData);
       try {
         if (result.status === 200) {
@@ -87,6 +94,8 @@ export default function Home() {
             setInputValueLength(0);
           } else if (result.data == 400) {
             alert("이미 참여하셨습니다! 다음주 월요일에 또 참여해주세요!");
+          } else if (result.data == 401) {
+            alert("당신은 누구..?");
           } else {
             setButtonDisabled(true);
             alert("오류가 발생하였습니다.");
