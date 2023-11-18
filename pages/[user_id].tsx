@@ -286,9 +286,7 @@ export default function Home() {
             <Flex direction="row" style={{ justifyContent: "space-between" }}>
               <Flex direction="column" style={{ width: "83%" }}>
                 <Textarea
-                  placeholder={
-                    "여기에 요약해주세요. \n8시에 AI 피드백이 제공됩니다!"
-                  }
+                  placeholder={"여기에 요약해주세요."}
                   variant="unstyled"
                   autosize
                   minRows={2}
