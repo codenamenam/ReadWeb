@@ -183,7 +183,7 @@ export default function Home() {
             <Flex direction="row" style={{ justifyContent: "space-between" }}>
               <Flex direction="column" style={{ width: "83%" }}>
                 <Textarea
-                  placeholder={"글을 읽고 200자 이내로 요약해주세요."}
+                  placeholder={"글을 읽고 200자 이내로 요약해주세요. "}
                   variant="unstyled"
                   autosize
                   minRows={2}
